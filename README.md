@@ -78,7 +78,7 @@ I ran preliminary training test for each of methods above. I ran 5 iterations of
 
 Applying gray scaled helped to decrease training time with similar accuracy.
 
-Equalizers did not improve accuracy significantly, but adaptive histogram method achieved slightly better accuracy on 3 iterations.
+Equalizers did not improve accuracy significantly, but adaptive histogram method achieved better accuracy on all iterations.
 
 Image threshold negatively affected accuracy.  
 
@@ -117,9 +117,26 @@ My final model results were:
 * validation set accuracy of .974
 * test set accuracy of .962
 
-I first tested the LeNet provided in the previous lecture. There were strong signs of overfitting, so I added dropout layers.
+* What was the first architecture that was tried and why was it chosen?
 
-I first used keep probability of 0.7, but the network completely overfitted to training data after 70 epochs. I lowered the keep probability to 0.5 for final model.
+I first tested the LeNet provided in the previous lecture. I wanted to used it as a baseline and improve it.
+
+* What were some problems with the initial architecture?
+
+There was strong sign of overfitting. Training accuracy was still arising at .95 but validation accuracy plateaued under .9
+
+* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to overfitting or underfitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
+
+I added dropout layers to mitigate overfitting.
+
+* Which parameters were tuned? How were they adjusted and why?
+
+I first set learning rate to large value (.001) and tuned Keep probability with 20 epochs. First I set it to 0.7 and achieved .955 validation accuracy. Next I trained with with .0005 learning rate for 100 epochs. Validation accuracy was 0.972 but the training accuracy reached 1.0 after 80 epoch, so model compeletely overfitted. So I lowered keep probability to 0.5. The validation accuracy improved slightly, .980.
+
+* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+
+The dropout layers sets random sets of node inputs to 0, based on keep probability. It helps to mitigate overfitting, as it forces the network to learn diverse representations. 
+
 
 ### Test a Model on New Images
 
@@ -136,6 +153,8 @@ I added three translated samples because the position of signs in the samples we
 Here are the results of the prediction:
 
 ![alt text][image4]
+
+As result, the model acheived .625 accuracy on new images. The accuracy on the test set was .962, which indicates that the model overfitted.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
